@@ -68,6 +68,7 @@ nav a::after {
 }
 
 .hero {
+    transition: background-image 1s ease-in-out;
     position: relative;
     background-image: url('../images/bg3.webp');
     background-position: center center;
@@ -80,6 +81,22 @@ nav a::after {
     font-weight: 200;
     color: rgb(255, 255, 255);
     overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 300px;
+}
+
+/* Overlay for color wrapping effect */
+.hero::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(120deg, rgba(0, 0, 0, 0.45) 0%, rgba(0, 0, 0, 0.65) 100%);
+    z-index: 0;
+    pointer-events: none;
+    transition: background 1s;
 }
 
 /* Responsive background for mobile */
@@ -92,7 +109,14 @@ nav a::after {
         font-size: 1.1rem;
         background-position: center center;
         background-size: cover;
-        min-height: 300px;
+        min-height: 400px;
+    }
+
+    .hero .btn {
+        margin-left: auto;
+        margin-right: auto;
+        display: block;
+        text-align: center;
     }
 }
 
@@ -106,65 +130,46 @@ nav a::after {
         background-size: cover;
         min-height: 200px;
     }
+
 }
 
-.hero::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background: rgba(0, 0, 0, 0.65);
-    /* black shade, adjust opacity as needed */
-    z-index: 0;
-    pointer-events: none;
+
+/* Slide-in animation */
+@keyframes heroSlideIn {
+    from {
+        opacity: 0;
+        transform: translateY(40px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
+/* Apply animation to hero children */
 .hero>* {
     position: relative;
     z-index: 1;
+    opacity: 0;
+    animation: heroSlideIn 2s cubic-bezier(0.23, 1, 0.32, 1) forwards;
 }
 
-.hero h2 {
-    font-size: 2rem;
-    font-weight: 400;
-    margin-bottom: 1rem;
-    font-family: 'Raleway', sans-serif;
-    letter-spacing: 2px;
+/* Stagger the animation for each child */
+.hero>*:nth-child(1) {
+    animation-delay: 0.1s;
 }
 
-.hero p {
-    font-size: 1.2rem;
-    margin: 1rem 1rem;
-    max-width: 800px;
-    margin-left: auto;
-    margin-right: auto;
-    margin-bottom: 100px;
+.hero>*:nth-child(2) {
+    animation-delay: 0.3s;
 }
 
-.hero .btn {
-    padding: 1rem 2rem;
-    background: linear-gradient(90deg, #000000, #676767, #000000, #ffffff);
-    background-size: 400% 400%;
-    color: white;
-    text-decoration: none;
-    font-size: 1rem;
-    border-radius: 24px;
-    font-family: 'Merriweather', serif;
-    letter-spacing: 2px;
-    cursor: pointer;
-    font-weight: 700;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
-    border: 1px solid #ffffff;
-    transition: transform 0.3s ease, box-shadow 0.3s, background-position 0.5s;
-    display: inline-block;
-    background-position: 0% 50%;
+.hero>*:nth-child(3) {
+    animation-delay: 0.5s;
 }
 
-.hero .btn:hover {
-    color: #ffffff;
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
-    transform: scale(1.1);
-    animation: gradientMove 1.5s linear infinite;
-    background-position: 100% 50%;
+.hero>*:nth-child(4) {
+    animation-delay: 0.7s;
 }
 
 @keyframes gradientMove {
@@ -226,13 +231,45 @@ footer {
 
 .contact-form textarea {
     width: 100%;
+    min-height: 100px;
+    max-height: 220px;
     resize: vertical;
+    box-sizing: border-box;
+    margin-bottom: 1rem;
+    font-size: 1rem;
+    padding: 0.8rem;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    font-family: 'Poppins', 'Montserrat', 'Segoe UI', Arial, sans-serif;
 }
 
 .contact-form .btn {
-    margin-top: 1rem;
     width: 100%;
+    display: block;
+    margin: 0 auto;
+    padding: 0.9rem 0;
+    font-size: 1.1rem;
+    border-radius: 8px;
+    background: #222;
+    color: #fff;
+    border: none;
     cursor: pointer;
+    transition: background 0.2s;
+}
+
+.contact-form .btn:hover {
+    background: #444;
+}
+
+/* Responsive adjustments for mobile */
+@media (max-width: 600px) {
+
+    .contact-form textarea,
+    .contact-form .btn {
+        font-size: 1rem;
+        padding: 0.7rem;
+        min-height: 80px;
+    }
 }
 
 .social-links {
@@ -308,6 +345,13 @@ footer {
 }
 
 @media (max-width: 600px) {
+
+    .hero h2 {
+        text-shadow:
+            0 2px 12px rgba(0, 0, 0, 0.35),
+            0 1px 2px rgba(0, 0, 0, 0.18);
+    }
+
     .form-row {
         flex-direction: column;
         gap: 0.5rem;
@@ -315,6 +359,16 @@ footer {
 
     .contact-form {
         padding: 1rem;
+    }
+
+    /* Responsive for mobile */
+    .jwlogo-grid {
+        grid-template-columns: 1fr;
+        gap: 1.2rem;
+    }
+
+    .jwlogo-item {
+        padding: 1.2rem 0.7rem;
     }
 }
 
@@ -332,116 +386,67 @@ footer {
 /* Responsive styles for mobile devices */
 @media (max-width: 768px) {
     header {
-        margin-bottom: 1rem;
-        mn;
+        margin-bottom: 0.5rem;
+        padding: 1rem;
+        text-align: center;
     }
-
-    padding: 1rem;
-    text-align: center;
 
     nav {
         margin-top: 1rem;
     }
 
     .logo-container {
-        nav a {
-            tify-content: center;
-            margin: 0 0.5rem;
-            em;
-            font-size: 1rem;
-            display: inline-block;
-        }
+        justify-content: center;
+    }
 
-        av {
-            margin-top: 1rem;
+    nav a {
+        margin: 0 0.5rem;
+        font-size: 1rem;
+        display: inline-block;
+    }
 
-            .hero {
-                padding: 4rem 1rem;
-                font-size: 1.1rem;
-            }
+    .hero {
+        padding: 4rem 1rem;
+        font-size: 1.1rem;
+    }
 
-            margin: 0 0.5rem;
-            font-size: 1rem;
+    .hero h2 {
+        text-shadow:
+            0 2px 12px rgba(0, 0, 0, 0.35),
+            0 1px 2px rgba(0, 0, 0, 0.18);
+    }
 
-            .hero .btn {
-                inline-block;
-                padding: 0.7rem 1.5rem;
-                font-size: 1rem;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                flex-direction: column;
-                text-align: center;
-                max-width: 900px;
-                font-family: 'Poppins', 'Montserrat', 'Segoe UI', Arial, sans-serif;
-            }
-
-            font-size: 1rem;
-            display: flex;
-
-            footer {
-                n-items: center;
-                padding: 0.7rem;
-                center;
-                font-size: 0.9rem;
-                lumn;
-            }
-
-            text-align: center;
-        }
-
-        @media(max-width: 900px){
-        font-family: 'Poppins',
-        'Montserrat',
-        'Segoe UI',
-        Arial,
-        sans-serif;
-        }
+    footer {
+        align-items: center;
+        padding: 0.7rem;
+        text-align: center;
+        font-size: 0.9rem;
+        flex-direction: column;
     }
 }
-        /* Extra small devices */
-        @media (max-width: 480px) {
-            .hero {
-                    {
-                    padding: 2rem 0.5rem;
-                    font-size: 1rem;
-                    m;
-                }
-            }
 
-            .hero .btn {
-                padding: 0.6rem 1rem;
-                font-size: 0.9rem;
+/* Extra small devices */
+@media (max-width: 480px) {
+    .hero {
+        padding: 2rem 0.5rem;
+        font-size: 1rem;
+    }
 
-                    {
-                    display: flex;
-                    align-items: center;
-                    ;
-                    justify-content: center;
-                }
 
-                header {
-                    tn {
-                        padding: 0.7rem;
-                        1rem;
-                    }
+    header {
+        padding: 0.7rem;
+    }
+}
 
-                    font-size: 0.9rem;
-                }
-
-                display: flex;
-                align-items: center;
-                justify-content: center;
-            }
-
-            header {
-                padding: 0.7rem;
-            }
-        }
+.hero h2 {
+    text-shadow:
+        0 2px 12px rgba(0, 0, 0, 0.35),
+        0 1px 2px rgba(0, 0, 0, 0.18);
+}
 
 
 
- /* Correct Mobile Nav & Hamburger Styles */
+/* Correct Mobile Nav & Hamburger Styles */
 .hamburger {
     display: none;
     font-size: 2rem;
@@ -487,4 +492,58 @@ footer {
     .nav-links.show {
         display: flex;
     }
+}
+
+/* 3D effective grid for jwlogo */
+.jwlogo-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 2rem;
+    margin: 2rem 0;
+    justify-items: center;
+}
+
+.jwlogo-item {
+    background: rgba(255, 255, 255, 0.07);
+    border-radius: 18px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.9), 0 1.5px 8px rgba(0, 0, 0, 0.12);
+    padding: 2rem 1.5rem 1.5rem 1.5rem;
+    text-align: center;
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition:
+        transform 0.3s cubic-bezier(.25, .8, .25, .8),
+        box-shadow 0.3s cubic-bezier(.25, .8, .25, .8);
+    perspective: 600px;
+    will-change: transform, box-shadow;
+}
+
+.jwlogo-item img {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 50%;
+    margin-bottom: 1rem;
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.18);
+    background: #fff;
+    transition: transform 0.3s cubic-bezier(.25, .8, .25, 1);
+}
+
+.jwlogo-item span {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-top: 0.5rem;
+    letter-spacing: 1px;
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.18);
+}
+
+.jwlogo-item:hover {
+    transform: rotateY(12deg) scale(1.07) translateY(-8px);
+    box-shadow: 0 16px 48px rgba(0, 0, 0, 0.28), 0 2px 12px rgba(255, 255, 255, 0.18);
+}
+
+.jwlogo-item:hover img {
+    transform: scale(1.12) rotateZ(-360deg);
 }
