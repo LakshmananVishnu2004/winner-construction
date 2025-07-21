@@ -141,7 +141,7 @@ nav a::after {
 }
 
 .hero .btn {
-    padding: 1rem 1.5rem;
+    padding: 1rem 2rem;
     background: linear-gradient(90deg, #000000, #676767, #000000, #ffffff);
     background-size: 400% 400%;
     color: white;
