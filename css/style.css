@@ -109,6 +109,7 @@ nav a::after {
         font-size: 1.1rem;
         background-position: center center;
         background-size: cover;
+<<<<<<< HEAD
         min-height: 400px;
     }
 
@@ -117,6 +118,9 @@ nav a::after {
         margin-right: auto;
         display: block;
         text-align: center;
+=======
+        min-height: 480px;
+>>>>>>> 4819b6c0b9344b0df0668d81c17e03ae2123e63a
     }
 }
 
@@ -128,7 +132,7 @@ nav a::after {
         font-size: 1rem;
         background-position: center center;
         background-size: cover;
-        min-height: 200px;
+        min-height: 480px;
     }
 
 }
