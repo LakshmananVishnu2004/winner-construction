@@ -92,7 +92,7 @@ nav a::after {
         font-size: 1.1rem;
         background-position: center center;
         background-size: cover;
-        min-height: 300px;
+        min-height: 600px;
     }
 }
 
@@ -104,7 +104,7 @@ nav a::after {
         font-size: 1rem;
         background-position: center center;
         background-size: cover;
-        min-height: 400px;
+        min-height: 600px;
     }
 }
 
@@ -141,7 +141,7 @@ nav a::after {
 }
 
 .hero .btn {
-    padding: 1rem 2rem;
+    padding: 1rem 1.5rem;
     background: linear-gradient(90deg, #000000, #676767, #000000, #ffffff);
     background-size: 400% 400%;
     color: white;
